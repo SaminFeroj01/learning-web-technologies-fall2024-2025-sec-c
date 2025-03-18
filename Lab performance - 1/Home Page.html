@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Page</title>
+    <script>
+        function checkLogin() {
+            var loggedIn = sessionStorage.getItem("loggedIn");
+            if (!loggedIn) {
+                window.location.href = "login.html";
+            }
+        }
+        window.onload = checkLogin;
+    </script>
+</head>
+<body>
+    <h2>Welcome to the Home Page</h2>
+    <p>You are successfully logged in.</p>
+    <a href="#" onclick="sessionStorage.removeItem('loggedIn'); window.location.href='login.html';">Logout</a>
+</body>
+</html>
