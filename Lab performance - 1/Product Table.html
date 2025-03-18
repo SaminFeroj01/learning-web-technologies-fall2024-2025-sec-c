@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Table</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 50%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        a {
+            text-decoration: none;
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+
+    <h3>DISPLAY</h3>
+    <table id="productTable">
+        <tr>
+            <th>NAME</th>
+            <th>PROFIT</th>
+            <th></th>
+        </tr>
+    </table>
+
+    <script>
+        const products = [
+            { name: "Samsung", profit: 5000, display: true },
+            { name: "Nokia", profit: 1500, display: true },
+            { name: "Xiaomi", profit: 3300, display: true },
+            { name: "Apple", profit: 7000, display: false }, // This will be ignored
+        ];
+
+        const table = document.getElementById("productTable");
+
+        products.forEach(product => {
+            if (product.display) {
+                const row = `<tr>
+                                <td>${product.name}</td>
+                                <td>${product.profit}</td>
+                                <td><a href="#">edit</a> | <a href="#">delete</a></td>
+                            </tr>`;
+                table.innerHTML += row;
+            }
+        });
+    </script>
+
+</body>
+</html>
