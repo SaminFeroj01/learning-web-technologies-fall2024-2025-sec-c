@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <style>
+        .container {
+            width: 300px;
+            border: 1px solid black;
+            padding: 10px;
+        }
+        .container h3 {
+            margin: 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid black;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3>ADD PRODUCT</h3>
+        <form action="process.php" method="POST">
+            <label for="name">Name</label><br>
+            <input type="text" id="name" name="name"><br>
+
+            <label for="buying_price">Buying Price</label><br>
+            <input type="number" id="buying_price" name="buying_price" step="0.01"><br>
+
+            <label for="selling_price">Selling Price</label><br>
+            <input type="number" id="selling_price" name="selling_price" step="0.01"><br>
+
+            <input type="checkbox" id="display" name="display">
+            <label for="display">Display</label><br><br>
+
+            <hr>
+            <button type="submit">SAVE</button>
+        </form>
+    </div>
+</body>
+</html>
