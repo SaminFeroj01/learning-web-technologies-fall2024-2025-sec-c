@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Validation Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .form-container {
+            border: 1px solid #000;
+            padding: 20px;
+            margin-bottom: 20px;
+            width: 350px;
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-container input[type="text"],
+        .form-container select {
+            padding: 5px;
+            width: 90%;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+        }
+        .form-container input[type="checkbox"],
+        .form-container input[type="radio"] {
+            margin-right: 5px;
+        }
+        .form-container input[type="submit"] {
+            margin-top: 10px;
+            padding: 5px 15px;
+            background-color: #ccc;
+            border: none;
+            cursor: pointer;
+        }
+        .form-container input[type="submit"]:hover {
+            background-color: #bbb;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 180px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -90px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Complete Form</h1>
+
+    <form onsubmit="return validateFullForm(event)">
+        
+        <!-- Name Section -->
+        <div class="form-container">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name">
+            <div id="name-error" class="error"></div>
+        </div>
+
+        <!-- Email Section -->
+        <div class="form-container">
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email">
+            <span class="tooltip">&#8505;
+                <span class="tooltiptext">hint: sample@example.com</span>
+            </span>
+            <div id="email-error" class="error"></div>
+        </div>
+
+        <!-- Gender Section -->
+        <div class="form-container">
+            <label>Gender</label>
+            <input type="radio" id="male" name="gender" value="Male">
+            <label for="male">Male</label>
+            <input type="radio" id="female" name="gender" value="Female">
+            <label for="female">Female</label>
+            <input type="radio" id="other" name="gender" value="Other">
+            <label for="other">Other</label>
+            <div id="gender-error" class="error"></div>
+        </div>
+
+        <!-- Blood Group Section -->
+        <div class="form-container">
+            <label>Blood Group</label>
+            <select id="bloodGroup" name="bloodGroup" required>
+                <option value="" disabled selected>Select Blood Group</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+            </select>
+            <div id="bloodGroup-error" class="error"></div>
+        </div>
+
+        <!-- Degree Section -->
+        <div class="form-container">
+            <label>Degree</label>
+            <input type="checkbox" id="ssc" name="degree" value="SSC"> SSC
+            <input type="checkbox" id="hsc" name="degree" value="HSC"> HSC
+            <input type="checkbox" id="bsc" name="degree" value="BSc"> BSc
+            <div id="degree-error" class="error"></div>
+        </div>
+
+        <!-- Date of Birth Section -->
+        <div class="form-container">
+            <label>Date of Birth</label>
+            <input type="text" id="day" placeholder="dd" maxlength="2" required> /
+            <input type="text" id="month" placeholder="mm" maxlength="2" required> /
+            <input type="text" id="year" placeholder="yyyy" maxlength="4" required>
+            <div id="dob-error" class="error"></div>
+        </div>
+
+        <input type="submit" value="SUBMIT">
+
+    </form>
+
+    <script>
+        function validateFullForm(event) {
+            event.preventDefault();
+
+            // Reset all errors
+            document.querySelectorAll('.error').forEach(el => {
+                el.style.display = 'none';
+                el.textContent = '';
+            });
+
+            // Name Validation
+            let name = document.getElementById("name").value.trim();
+            let nameRegex = /^[A-Za-z][A-Za-z.\-]*\s+[A-Za-z.\-]+$/;
+            if (name === "" || !nameRegex.test(name)) {
+                document.getElementById('name-error').textContent = 'Please enter a valid name (at least two words).';
+                document.getElementById('name-error').style.display = 'block';
+                return false;
+            }
+
+            // Email Validation
+            let email = document.getElementById("email").value.trim();
+            let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            if (email === "" || !emailPattern.test(email)) {
+                document.getElementById('email-error').textContent = 'Please enter a valid email address.';
+                document.getElementById('email-error').style.display = 'block';
+                return false;
+            }
+
+            // Gender Validation
+            let genderOptions = document.getElementsByName("gender");
+            let isGenderChecked = Array.from(genderOptions).some(option => option.checked);
+            if (!isGenderChecked) {
+                document.getElementById('gender-error').textContent = 'Please select a gender.';
+                document.getElementById('gender-error').style.display = 'block';
+                return false;
+            }
+
+            // Blood Group Validation
+            let bloodGroup = document.getElementById('bloodGroup').value;
+            if (!bloodGroup) {
+                document.getElementById('bloodGroup-error').textContent = 'Please select a blood group.';
+                document.getElementById('bloodGroup-error').style.display = 'block';
+                return false;
+            }
+
+            // Degree Validation
+            let degrees = ['ssc', 'hsc', 'bsc'];
+            let degreeSelected = degrees.some(id => document.getElementById(id).checked);
+            if (!degreeSelected) {
+                document.getElementById('degree-error').textContent = 'At least one degree must be selected.';
+                document.getElementById('degree-error').style.display = 'block';
+                return false;
+            }
+
+            // Date of Birth Validation
+            let day = document.getElementById('day').value.trim();
+            let month = document.getElementById('month').value.trim();
+            let year = document.getElementById('year').value.trim();
+
+            let dayNum = parseInt(day);
+            let monthNum = parseInt(month);
+            let yearNum = parseInt(year);
+
+            if (!day || !month || !year || isNaN(dayNum) || isNaN(monthNum) || isNaN(yearNum)) {
+                document.getElementById('dob-error').textContent = 'Please enter valid numbers for Date of Birth.';
+                document.getElementById('dob-error').style.display = 'block';
+                return false;
+            }
+
+            if (dayNum < 1 || dayNum > 31) {
+                document.getElementById('dob-error').textContent = 'Day must be between 1 and 31.';
+                document.getElementById('dob-error').style.display = 'block';
+                return false;
+            }
+            if (monthNum < 1 || monthNum > 12) {
+                document.getElementById('dob-error').textContent = 'Month must be between 1 and 12.';
+                document.getElementById('dob-error').style.display = 'block';
+                return false;
+            }
+            if (yearNum < 1900 || yearNum > 2016) {
+                document.getElementById('dob-error').textContent = 'Year must be between 1900 and 2016.';
+                document.getElementById('dob-error').style.display = 'block';
+                return false;
+            }
+
+            // Final Submission if all validations pass
+            alert('Form submitted successfully!');
+            return true;
+        }
+    </script>
+
+</body>
+</html>

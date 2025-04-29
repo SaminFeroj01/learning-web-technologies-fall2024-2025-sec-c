@@ -6,7 +6,7 @@
         function checkLogin() {
             var loggedIn = sessionStorage.getItem("loggedIn");
             if (!loggedIn) {
-                window.location.href = "login.html";
+                window.location.href = "Login Page.html";
             }
         }
         window.onload = checkLogin;
@@ -15,6 +15,6 @@
 <body>
     <h2>Welcome to the Home Page</h2>
     <p>You are successfully logged in.</p>
-    <a href="#" onclick="sessionStorage.removeItem('loggedIn'); window.location.href='login.html';">Logout</a>
+    <a href="#" onclick="sessionStorage.removeItem('loggedIn'); window.location.href='Login Page.html';">Logout</a>
 </body>
 </html>
